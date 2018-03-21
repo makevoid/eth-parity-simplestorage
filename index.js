@@ -10,7 +10,10 @@ const c = console
 const interf = require(`./${contractName}.json`)["contracts"][`${contractName}.sol:${contractName}`]
 const abi       = JSON.parse(interf.abi)
 const bytecode  = `0x${interf.bin}`
-const contractAddress = readFileSync("contract-address.txt")
+const contractAddress = readFileSync("contract-address.txt").toString().trim()
+const utils = web3.utils
+const stringToHex = utils.stringToHex
+const hexToString = utils.hexToString
 
 ;(async () => {
 
@@ -20,16 +23,26 @@ const contractAddress = readFileSync("contract-address.txt")
   const balance = await eth.getBalance(address)
   c.log("balance:", balance)
 
-  const simpleStorage = new eth.Contract(abi, contractAddress)
+  c.log("contractAddress:", contractAddress)
+
+  const simpleStorage = new eth.Contract(abi, contractAddress, { gasPrice: 5000000000, from: address })
 
   const txOptions = {
-    from: address
+    from: address,
+    gasPrice: 5000000000,
   }
   const num = Number(Math.random() * 10000).toFixed(0)
-  const resultTx = await simpleStorage.methods.set(`foo-${num}`).send(txOptions)
-  c.log(resultTx)
+  const value = stringToHex(`foo-${num}`)
+
   const result = await simpleStorage.methods.data().call()
-  c.log("Data:", result)
+  c.log("Data:", hexToString(result))
+
+  const resultTx = await simpleStorage.methods.set(value).send(txOptions)
+  // c.log(resultTx)
+  c.log("TX hash:", resultTx.transactionHash)
+
+  const result2 = await simpleStorage.methods.data().call()
+  c.log("Data:", hexToString(result2))
   process.exit(0)
 
 })()
