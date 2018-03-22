@@ -24,6 +24,14 @@ Run:
 npm install
 ```
 
+### Compile
+
+Run:
+
+```
+./compile.sh
+```
+
 ### Deploy contract
 
 Run:
