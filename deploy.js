@@ -21,10 +21,7 @@ const bytecode  = `0x${interf.bin}`
 
   const SimpleStorage = new eth.Contract(abi, { from: address, data: bytecode })
 
-  const txOptions = {
-    from: address
-  }
-  const result = await SimpleStorage.deploy().send(txOptions)
+  const result = await SimpleStorage.deploy().send({ from: address })
   const contractAddress = result._address
   writeFileSync("contract-address.txt", contractAddress)
   c.log("Contract deployed!")
