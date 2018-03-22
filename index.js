@@ -25,7 +25,7 @@ const hexToString = utils.hexToString
 
   c.log("contractAddress:", contractAddress)
 
-  const simpleStorage = new eth.Contract(abi, contractAddress, )
+  const simpleStorage = new eth.Contract(abi, contractAddress)
 
   const num = Number(Math.random() * 10000).toFixed(0)
   const value = stringToHex(`foo-${num}`)
@@ -36,7 +36,7 @@ const hexToString = utils.hexToString
   const resultTx = await simpleStorage.methods.set(value).send({ from: address })
   // c.log(resultTx)
   c.log("TX hash:", resultTx.transactionHash)
-
+  
   const result2 = await simpleStorage.methods.data().call()
   c.log("Data:", hexToString(result2))
   process.exit(0)
