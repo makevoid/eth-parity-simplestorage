@@ -25,11 +25,10 @@ const hexToString = utils.hexToString
 
   c.log("contractAddress:", contractAddress)
 
-  const simpleStorage = new eth.Contract(abi, contractAddress, { gasPrice: 5000000000, from: address })
+  const simpleStorage = new eth.Contract(abi, contractAddress, { from: address })
 
   const txOptions = {
-    from: address,
-    gasPrice: 5000000000,
+    from: address
   }
   const num = Number(Math.random() * 10000).toFixed(0)
   const value = stringToHex(`foo-${num}`)
