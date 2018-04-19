@@ -43,7 +43,8 @@ brew update
 brew upgrade
 brew tap ethereum/ethereum
 brew install solidity
-brew linkapps solidity```
+brew linkapps solidity
+```
 
 (which are the commands written in the docs: http://solidity.readthedocs.io/en/v0.4.21/installing-solidity.html#binary-packages )
 
@@ -68,8 +69,11 @@ mkdir -p ~/bin
 echo 'export PATH=$PATH:~/bin' >>  ~/.bash_profile 
 source ~/.bash_profile
 ln -s "/Applications/Parity Ethereum.app/Contents/MacOS/parity" ~/bin/parity
-mkdir -p ~/tmp```
+mkdir -p ~/tmp
+```
 
 this starts parity unlocking your main account
 
-```echo "foo" > ~/tmp/pass  && parity --chain kovan --password ~/tmp/pass --unlock $(parity --chain kovan account list | head -n 1) ```
+```
+echo "foo" > ~/tmp/pass  && parity --chain kovan --password ~/tmp/pass --unlock $(parity --chain kovan account list | head -n 1) 
+```
